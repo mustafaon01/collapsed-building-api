@@ -11,6 +11,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://admin:password@db:5432/bui
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
+# Veritabanımız için model oluşturuyoruz
 class Building(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50))
@@ -27,6 +28,7 @@ class Building(db.Model):
             "longitude": self.longitude
         }
 
+# Girilen verinin uygunluğunu kontrol ediyoruz
 class BuildingSchema(Schema):
     id = fields.Int(dump_only=True)
     name = fields.Str(required=True, validate=lambda n: len(n) <= 50)
